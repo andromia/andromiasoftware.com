@@ -23,7 +23,11 @@
                     <li><a href="{{ url_for('main.TDR') }}">The Duel: Reloaded</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <!--TODO: add login logout on anon status-->
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">Staff Login</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

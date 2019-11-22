@@ -2,5 +2,9 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
+    {% if current_user.is_anonymous %}
     <h1>Welcome</h1>
+    {% else %}
+    <h1>{{ 'Hi, %s' % current_user.username }}</h1>
+    {% endif %}
 {% endblock %}
