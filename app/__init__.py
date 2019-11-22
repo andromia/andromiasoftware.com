@@ -1,9 +1,17 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from config import Config
 
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
+login.login_view = 'auth.login'
+login.login_message = 'Please log in to access this site.'
 bootstrap = Bootstrap()
 moment = Moment()
 
@@ -11,6 +19,8 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    db.init_app(app)
+    migrate.init_app(app, db)
     bootstrap.init_app(app)
     moment.init_app(app)
 
