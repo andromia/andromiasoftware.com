@@ -3,7 +3,7 @@ from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user
 from app import db
 from app.auth import bp
-from app.auth.forms import LoginForm
+from app.auth.forms import LoginForm, ResetPasswordForm
 from app.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -27,3 +27,23 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+def handle_reset(user, form):
+    if user.check_password(form.password.data):
+        user.set_password(form.new_password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Password has been updated!')
+        return True
+    flash('Current password is incorrect.')
+    return False
+
+@bp.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user = current_user
+        if handle_reset(user, form): return redirect(url_for('main.index'))
+    return render_template('auth/reset_password.html', title='Reset Password', form=form)
