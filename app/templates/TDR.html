@@ -11,4 +11,7 @@
         Our goal is to focus on a combat system centered around K-Style and launch a modern game for this same community.
     </p>
     <h2>Dev Posts</h2>
+    {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
 {% endblock %}

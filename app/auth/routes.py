@@ -28,7 +28,7 @@ def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
-def handle_reset(user, form):
+def handle_reset_password(user, form):
     if user.check_password(form.password.data):
         user.set_password(form.new_password.data)
         db.session.add(user)
@@ -45,5 +45,5 @@ def reset_password():
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user = current_user
-        if handle_reset(user, form): return redirect(url_for('main.index'))
+        if handle_reset_password(user, form): return redirect(url_for('main.index'))
     return render_template('auth/reset_password.html', title='Reset Password', form=form)
