@@ -19,7 +19,7 @@ def MDS():
 @bp.route('/theduelreloaded', methods=['GET', 'POST'])
 def TDR():
     posts = Post.query.filter_by(project='TDR').order_by(Post.timestamp.desc())
-    return render_template('TDR.html', title='The Duel Reloaded', posts=list(posts))
+    return render_template('TDR.html', title='The Duel Reloaded', posts=posts)
 
 @bp.route('/staff_post', methods=['GET', 'POST'])
 def staff_post():
