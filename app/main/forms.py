@@ -9,6 +9,6 @@ class PostForm(FlaskForm):
     # SelectField does not allow None
     project = SelectField(
         'Project',
-        choices=[('', 'No Project'), ('MDS', 'Model Design Studio'), ('TDR', 'The Duel Reloaded')],
+        choices=[('None', 'No Project'), ('MDS', 'Model Design Studio'), ('TDR', 'The Duel Reloaded')],
         validators=[DataRequired()])
     submit = SubmitField('Submit')
