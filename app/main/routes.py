@@ -1,4 +1,6 @@
-from flask import render_template, redirect
+import os
+
+from flask import render_template, redirect, send_from_directory
 from flask_login import current_user, login_required
 from app import db
 from app.models import Post
@@ -6,6 +8,12 @@ from app.main.forms import PostForm
 from app.main import bp
 
 from app.utils import url_for
+
+
+@bp.route('/favicon.ico')
+def favicon():
+    return send_from_directory(url_for('static', filename='favicon.ico'),
+        mimetype='image/vnd.microsoft.icon')
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
