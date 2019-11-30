@@ -16,3 +16,9 @@ class ResetPasswordForm(FlaskForm):
     new_password2 = PasswordField('Validate Password', 
         validators=[DataRequired(), EqualTo('new_password')])
     submit = SubmitField('Submit')
+
+class CreateUserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    is_admin = BooleanField('Admin')
+    submit = SubmitField('Create User')
